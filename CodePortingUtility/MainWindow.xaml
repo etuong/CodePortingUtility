@@ -1,0 +1,91 @@
+﻿<Window x:Class="CodePortingUtility.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodePortingUtility"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="Code Porting Utility" Height="710" Width="690">
+
+    <Window.Resources>
+        <ControlTemplate TargetType="Button" x:Key="CustomButtonStyle">
+            <Border x:Name="Border" BorderThickness="1" BorderBrush="Gray">
+                <ContentPresenter HorizontalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="#e8e8e8" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="Border" Property="Background" Value="WhiteSmoke" />
+                    <Setter Property="Foreground" Value="Gray" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="0 5" />
+        </Style>
+    </Window.Resources>
+
+    <Border Padding="10 0">
+        <StackPanel>
+            <TextBlock FontSize="14" FontFamily="Calibri" FontWeight="Bold" TextWrapping="Wrap" Margin="0 10 0 0"
+            Text="The purpose of this utility is to port legacy code by means of replacing strings defined in a dictionary."/>
+
+            <Label Content="Instruction: Select one of the following radio buttons, browse for JSON file and Beyond Compare (optional) and run utility" />
+
+            <RadioButton x:Name="fileRadioBtn" Padding="5 -5" Margin="10">
+                <RadioButton.Content>
+                    <GroupBox Header="Replace strings in a file" Width="600" Padding="5 0">
+                        <StackPanel>
+                            <Label Content="Choose a directory where the text file (.cpp, .cs, .txt, etc) are stored"/>
+                            <WrapPanel>
+                                <TextBox Width="470" HorizontalAlignment="Left" x:Name="pathTextBox" Text="Enter the file directory or browse for one"/>
+                                <Button Width="30" Content="..." x:Name="browseBtn" Click="browseBtn_Click" Template="{StaticResource CustomButtonStyle}" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </RadioButton.Content>
+            </RadioButton>
+
+            <RadioButton x:Name="boxRadioBtn" Padding="5 -5" Margin="10">
+                <RadioButton.Content>
+                    <GroupBox Header="Replace strings in a box" Width="600" Height="360" Padding="5 0">
+                        <StackPanel>
+                            <Label Content="Paste in texts"/>
+                            <TextBox Width="575" Height="305" TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Left"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="txtBox"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                        </StackPanel>
+                    </GroupBox>
+                </RadioButton.Content>
+            </RadioButton>
+
+            <StackPanel Margin="10 5">
+                <Label Content="Browse JSON file to be parse to dictionary"/>
+                <WrapPanel>
+                    <TextBox Width="470" HorizontalAlignment="Left" x:Name="jsonTextBox" Text="C:\Utilities\CodePortingScripts\MappingsForMultiReplace.json" />
+                    <Button Width="30" Content="..." x:Name="jsonBtn" Click="jsonBtn_Click" Template="{StaticResource CustomButtonStyle}" />
+                </WrapPanel>
+            </StackPanel>
+            
+            <StackPanel Margin="10 5">
+                <Label Content="(Optional feature) Beyond Compare (BComp.exe) program, this compares the string replacements"/>
+                <WrapPanel>
+                    <TextBox Width="470" HorizontalAlignment="Left" x:Name="bCompTextBox" Text="C:\Program Files\Beyond Compare 4\BComp.exe" />
+                    <Button Width="30" Content="..." x:Name="bCompBtn" Click="bCompBtn_Click" Template="{StaticResource CustomButtonStyle}" />
+                </WrapPanel>
+            </StackPanel>
+            
+            <StackPanel Margin="10 5">
+                <Label Content="Click button to run utility"/>
+                <Button Width="80" Height="20" FontSize="13" Content="Run Utility" x:Name="runBtn" Click="runBtn_Click"
+                    HorizontalAlignment="Left" Template="{StaticResource CustomButtonStyle}" />
+            </StackPanel>
+            
+        </StackPanel>
+    </Border>
+    
+</Window>
